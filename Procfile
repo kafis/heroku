@@ -1,1 +1,1 @@
-web:    java -cp target/classes:target/dependency/* de.kafis.ouath2.OAuth2Application server
+web:    java  -Ddw.http.port=$PORT -Ddw.http.adminPort=$PORT -cp target/classes:target/dependency/* de.kafis.ouath2.OAuth2Application server

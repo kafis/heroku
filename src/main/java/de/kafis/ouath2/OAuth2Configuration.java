@@ -13,7 +13,7 @@ public class OAuth2Configuration extends Configuration {
         DefaultServerFactory factory = new DefaultServerFactory();
         factory.getApplicationConnectors().clear();
         String port = System.getenv("PORT");
-        int defaultPort = 8080;
+        int defaultPort = 9000;
         if(port != null) {
              defaultPort = Integer.valueOf(port);
         }
