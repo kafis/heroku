@@ -5,7 +5,6 @@ import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.jackson2.JacksonFactory;
 import com.google.api.services.calendar.Calendar;
 import com.google.api.services.calendar.model.Events;
-import de.kafis.ouath2.calendar.CalendarService;
 import de.kafis.ouath2.google.GoogleAuthorization;
 
 import javax.ws.rs.Path;
