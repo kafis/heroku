@@ -38,7 +38,7 @@ public class CalendarResource {
                 return  googleAuthorization.redirectUserToGoogleLoginPage(
                         uriInfo.getBaseUriBuilder().path(OAuthCallbackResource.class).build().toString(), "konrad");
             }
-            Events events = new Calendar(new NetHttpTransport(), JacksonFactory.getDefaultInstance(), credentials).events().list("").execute();
+            Events events = new Calendar(new NetHttpTransport(), JacksonFactory.getDefaultInstance(), credentials).events().list("konrad.pescador@gmail.com").execute();
             return Response.ok(events.toPrettyString()).build();
         } catch (Exception e) {
             throw new RuntimeException(e);
