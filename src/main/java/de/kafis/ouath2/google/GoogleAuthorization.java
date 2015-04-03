@@ -2,6 +2,7 @@ package de.kafis.ouath2.google;
 
 import com.google.api.client.auth.oauth2.Credential;
 import com.google.api.client.googleapis.auth.oauth2.GoogleAuthorizationCodeFlow;
+import com.google.api.client.googleapis.auth.oauth2.GoogleAuthorizationCodeTokenRequest;
 import com.google.api.client.googleapis.auth.oauth2.GoogleTokenResponse;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.jackson2.JacksonFactory;
@@ -17,8 +18,12 @@ import java.util.Collections;
 public class GoogleAuthorization {
 
     private GoogleAuthorizationCodeFlow flow;
+    private String clientId;
+    private String clientSecret;
 
     public GoogleAuthorization(String clientId, String clientSecret) {
+        this.clientId = clientId;
+        this.clientSecret = clientSecret;
         try {
             flow = new GoogleAuthorizationCodeFlow.Builder(
                     new NetHttpTransport(),
@@ -44,10 +49,10 @@ public class GoogleAuthorization {
         return Response.seeOther(new URI(flow.newAuthorizationUrl().setRedirectUri(redirectUrl).build())).build();
     }
 
-    public void exchangeAccessToken(String authorizationCode, String userId) {
+    public void exchangeAccessToken(String authorizationCode, String userId, String redirectUri) {
         GoogleTokenResponse token = null;
         try {
-            token = flow.newTokenRequest(authorizationCode).execute();
+            token = new GoogleAuthorizationCodeTokenRequest(flow.getTransport(), flow.getJsonFactory(), flow.getClientId(), clientSecret, authorizationCode,redirectUri).execute();
             flow.createAndStoreCredential(token,userId);
         } catch (IOException e) {
             throw new RuntimeException(e);
