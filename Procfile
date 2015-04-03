@@ -1,1 +1,1 @@
-web:    java  -Ddw.server.connector.port=$PORT  -cp target/classes:target/dependency/* de.kafis.ouath2.OAuth2Application server
+web:    java  -Ddw.server.connector.port=$PORT  -cp target/classes:target/dependency/* de.kafis.ouath2.OAuth2Application server heroku.yaml
