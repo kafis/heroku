@@ -1,8 +1,9 @@
 package de.kafis.ouath2;
 
+import de.kafis.ouath2.google.GoogleAuthorization;
+import de.kafis.ouath2.resources.CalendarResource;
 import de.kafis.ouath2.resources.OAuthCallbackResource;
 import io.dropwizard.Application;
-import io.dropwizard.Configuration;
 import io.dropwizard.setup.Environment;
 
 public class OAuth2Application extends Application<OAuth2Configuration> {
@@ -12,7 +13,8 @@ public class OAuth2Application extends Application<OAuth2Configuration> {
     }
     @Override
     public void run(OAuth2Configuration oAuth2Configuration, Environment environment) throws Exception {
-
-        environment.jersey().register(new OAuthCallbackResource());
+        GoogleAuthorization googleAuthorization = new GoogleAuthorization(System.getenv("CLIENT_ID"), System.getenv("CLIENT_SECRET"));
+        environment.jersey().register(new OAuthCallbackResource(googleAuthorization));
+        environment.jersey().register(new CalendarResource(googleAuthorization));
     }
 }
