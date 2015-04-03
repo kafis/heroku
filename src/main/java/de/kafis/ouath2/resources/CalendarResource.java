@@ -7,6 +7,7 @@ import com.google.api.services.calendar.Calendar;
 import com.google.api.services.calendar.model.Events;
 import de.kafis.ouath2.google.GoogleAuthorization;
 
+import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.Response;
@@ -25,6 +26,7 @@ public class CalendarResource {
         this.googleAuthorization = googleAuthorization;
     }
 
+    @GET
     public Response calendar() {
         try {
             Credential credentials = googleAuthorization.getCredentialsFor("konrad");
