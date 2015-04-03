@@ -12,6 +12,7 @@ public class OAuth2Application extends Application<OAuth2Configuration> {
     }
     @Override
     public void run(OAuth2Configuration oAuth2Configuration, Environment environment) throws Exception {
-       environment.jersey().register(new OAuthCallbackResource());
+
+        environment.jersey().register(new OAuthCallbackResource());
     }
 }
