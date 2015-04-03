@@ -36,7 +36,7 @@ public class CalendarResource {
             Credential credentials = googleAuthorization.getCredentialsFor("konrad");
             if(credentials == null) {
                 return  googleAuthorization.redirectUserToGoogleLoginPage(
-                        uriInfo.getAbsolutePathBuilder().path(OAuthCallbackResource.class).build().toString(), "konrad");
+                        uriInfo.getBaseUriBuilder().path(OAuthCallbackResource.class).build().toString(), "konrad");
             }
             Events events = new Calendar(new NetHttpTransport(), JacksonFactory.getDefaultInstance(), credentials).events().list("").execute();
             return Response.ok(events.toPrettyString()).build();
