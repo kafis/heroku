@@ -12,12 +12,16 @@ import javax.ws.rs.Path;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriBuilder;
+import javax.ws.rs.core.UriInfo;
 
 @Path("/me/calendar")
 public class CalendarResource {
 
     @Context
     private UriBuilder uriBuilder;
+
+    @Context
+    private UriInfo uriInfo;
 
     private GoogleAuthorization googleAuthorization;
 
@@ -31,7 +35,8 @@ public class CalendarResource {
         try {
             Credential credentials = googleAuthorization.getCredentialsFor("konrad");
             if(credentials == null) {
-                return  googleAuthorization.redirectUserToGoogleLoginPage(UriBuilder.fromResource(OAuthCallbackResource.class).toString(), "konrad");
+                return  googleAuthorization.redirectUserToGoogleLoginPage(
+                        uriInfo.getAbsolutePathBuilder().path(OAuthCallbackResource.class).build().toString(), "konrad");
             }
             Events events = new Calendar(new NetHttpTransport(), JacksonFactory.getDefaultInstance(), credentials).events().list("").execute();
             return Response.ok(events.toPrettyString()).build();
